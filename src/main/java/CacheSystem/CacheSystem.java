@@ -37,30 +37,22 @@ public class CacheSystem {
 	}
 	
 	public Object get (String key) throws Exception {
-		if (dataStore.isEmpty()) {
-			throw (new Exception ("No data stored at this time."));
-		}
-		else {
-			ValueObj vo = dataStore.get(key); 
-			if (vo!=null && !vo.isExpired()) {
-				return vo.getObject();
-			}
-			else
-				throw (new Exception ("Object does not exist/expired."));
-		}
+		if (dataStore.isEmpty()) return null;
+		
+		ValueObj vo = dataStore.get(key);
+		
+		if (vo == null) return null;
+		if (vo.isExpired()) return null;
+		
+		return vo.getObject();
 	}
 	
 	public synchronized void delete (String key) throws Exception {
-		if (dataStore.isEmpty())	// Fixed by mlvtr (https://github.com/mlvtr) 
-		{
-			throw (new Exception ("No data stored at this time."));
-		}
-		else {
-			dataStore.remove(key);
-		}
+		if (dataStore.isEmpty()) return;
+		dataStore.remove(key);
 	}
 	
-	public synchronized void add (String key, Object obj, long inputTTL) throws Exception {
+	public synchronized void add (String key, Object obj, long inputTTL) {
 		long timeToLive = System.currentTimeMillis() + (inputTTL);
 	
 		// Convert input TTL (in seconds) to milliseconds.
