@@ -19,20 +19,20 @@ public class CacheSystem {
 	
 	public CacheSystem (int initialCapacity, float loadFactor) {
 		dataStore = new ConcurrentHashMap<String, ValueObj>(initialCapacity, loadFactor);
+		initCache();
+	}
+	
+	public CacheSystem () {
+		dataStore   = new ConcurrentHashMap<String, ValueObj> ();
+		initCache();
+	}
+	
+	private void initCache() {
 		expiryIndex = new TreeMap<Long, ArrayList<String>>  ();
 		cleaner = new CacheCleaner ();
 		cleaner.setDataStore(dataStore);
 		cleaner.setExpiryIndex(expiryIndex);
 		cleaner.setDaemon(true);
-		cleaner.start();
-	}
-	
-	public CacheSystem () {
-		dataStore   = new ConcurrentHashMap<String, ValueObj> ();
-		expiryIndex = new TreeMap<Long, ArrayList<String>>  ();
-		cleaner = new CacheCleaner ();
-		cleaner.setDataStore(dataStore);
-		cleaner.setExpiryIndex(expiryIndex);
 		cleaner.start();
 	}
 	
