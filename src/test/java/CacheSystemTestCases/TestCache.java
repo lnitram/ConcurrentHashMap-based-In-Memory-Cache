@@ -52,4 +52,19 @@ public class TestCache {
 		assertEquals("elgium",cache.get("b"));
 		assertNull(cache.get("a"));
 	}
+	
+	@Test
+	public void testContains() throws Exception {
+		CacheSystem cache = new CacheSystem(10);
+		cache.add("a", "Hallo", 30);
+		cache.add("b", null, 100);
+		Thread.sleep(10);
+		assertEquals(2, cache.size());
+		assertTrue(cache.contains("a"));
+		assertTrue(cache.contains("b"));
+		assertFalse(cache.contains("c"));
+		Thread.sleep(30);
+		assertFalse(cache.contains("a"));
+		
+	}
 }

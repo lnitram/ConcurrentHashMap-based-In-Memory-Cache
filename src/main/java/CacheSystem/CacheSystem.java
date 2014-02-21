@@ -37,20 +37,22 @@ public class CacheSystem {
 	}
 	
 	public Object get (String key) throws Exception {
-		if (dataStore.isEmpty()) return null;
-		
-		ValueObj vo = dataStore.get(key);
-		
-		if (vo == null) return null;
-		if (vo.isExpired()) return null;
-		
-		return vo.getObject();
+		if (!contains(key)) return null;
+		return dataStore.get(key).getObject();
 	}
 	
 	public synchronized void delete (String key) throws Exception {
 		if (dataStore.isEmpty()) return;
 		dataStore.remove(key);
 	}
+	
+	public boolean contains(String key) {
+		if (dataStore.isEmpty()) return false;
+		if (!dataStore.containsKey(key)) return false;
+		ValueObj vo = dataStore.get(key);
+		return !vo.isExpired();
+	}
+	
 	
 	public synchronized void add (String key, Object obj, long inputTTL) {
 		long timeToLive = System.currentTimeMillis() + (inputTTL);
