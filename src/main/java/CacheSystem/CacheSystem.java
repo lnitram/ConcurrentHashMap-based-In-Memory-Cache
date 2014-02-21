@@ -43,7 +43,7 @@ public class CacheSystem {
 		else {
 			ValueObj vo = dataStore.get(key); 
 			if (vo!=null && !vo.isExpired()) {
-				return vo;
+				return vo.getObject();
 			}
 			else
 				throw (new Exception ("Object does not exist/expired."));
