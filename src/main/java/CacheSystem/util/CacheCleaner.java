@@ -39,7 +39,6 @@ public class CacheCleaner extends Thread {
 		while (true) {
 			indexElement = null;
 			currentTime = System.currentTimeMillis();
-			System.out.println ("Cleaner woke-up at: "+currentTime+". No. of elements in index: "+expiryIndex.size());
 			
 			indexElement = expiryIndex.floorEntry (currentTime);
 			
@@ -47,7 +46,6 @@ public class CacheCleaner extends Thread {
 				Iterator<String> keyIterator = indexElement.getValue().iterator();
 				while (keyIterator.hasNext()) {
 					String key = keyIterator.next();
-					System.out.println ("Cleaning up: "+key);
 					dataStore.remove(key);
 				}
 				expiryIndex.remove(indexElement.getKey());
@@ -55,7 +53,6 @@ public class CacheCleaner extends Thread {
 			}
 			
 			try {
-			System.out.println ("Cleaner sleeping for: " + cleanupFrequency +" ms"); /* cleanupFrequency*(1000) */ 
 			synchronized (this) {
 				wait (cleanupFrequency);
 			}

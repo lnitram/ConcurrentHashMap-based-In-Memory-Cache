@@ -72,7 +72,6 @@ public class CacheSystem {
 			keys = new ArrayList<String> (); 
 
 		keys.add(key);
-		System.out.println ("Adding: ("+key+", "+inputTTL+"s ["+timeToLive+" ms])");
 		expiryIndex.put (timeToLive, keys);
 	}
 	
