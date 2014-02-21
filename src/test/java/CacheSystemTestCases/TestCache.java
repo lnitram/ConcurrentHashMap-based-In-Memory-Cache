@@ -18,12 +18,12 @@ public class TestCache {
 		assertEquals("Welt", cache.get("b"));
 
 		Thread.sleep(300);
-		assertEquals(1,cache.size());
-		assertEquals("Welt",cache.get("b"));
+		assertEquals(1, cache.size());
+		assertEquals("Welt", cache.get("b"));
 		assertNull(cache.get("a"));
 
 		Thread.sleep(200);
-		assertEquals(0,cache.size());
+		assertEquals(0, cache.size());
 		assertNull(cache.get("b"));
 	}
 
@@ -33,7 +33,7 @@ public class TestCache {
 		cache.add("a", "Alpha", 1000);
 		cache.add("b", "Bravo", 1000);
 
-		assertEquals(2,cache.size());
+		assertEquals(2, cache.size());
 		assertEquals("Alpha", cache.get("a"));
 		assertEquals("Bravo", cache.get("b"));
 	}
@@ -41,16 +41,16 @@ public class TestCache {
 	@Test
 	public void testRemove() throws Exception {
 		CacheSystem cache = new CacheSystem(1000);
-		cache.add("a","merica" , 1000);
+		cache.add("a", "merica", 1000);
 		cache.add("b", "elgium", 1000);
 
 		cache.delete("a");
 
 		assertEquals(1, cache.size());
-		assertEquals("elgium",cache.get("b"));
+		assertEquals("elgium", cache.get("b"));
 		assertNull(cache.get("a"));
 	}
-	
+
 	@Test
 	public void testContains() throws Exception {
 		CacheSystem cache = new CacheSystem(10);

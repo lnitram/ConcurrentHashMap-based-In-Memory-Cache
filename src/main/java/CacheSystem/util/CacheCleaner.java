@@ -9,39 +9,40 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CacheCleaner extends Thread {
 
 	private ConcurrentHashMap<String, ValueObj> dataStore;
-	private TreeMap<Long, ArrayList <String>> expiryIndex;
-	private Map.Entry<Long, ArrayList <String>> indexElement;
+	private TreeMap<Long, ArrayList<String>> expiryIndex;
+	private Map.Entry<Long, ArrayList<String>> indexElement;
 	private int cleanupFrequency = 30000;
 
-	public CacheCleaner (ConcurrentHashMap<String, ValueObj> dataStore, TreeMap<Long, ArrayList <String>> expiryIndex) {
-		setDataStore (dataStore);
+	public CacheCleaner(ConcurrentHashMap<String, ValueObj> dataStore, TreeMap<Long, ArrayList<String>> expiryIndex) {
+		setDataStore(dataStore);
 		setExpiryIndex(expiryIndex);
 		this.run();
 	}
-	public CacheCleaner () {
-		
+
+	public CacheCleaner() {
+
 	}
-	
-	public void setDataStore (ConcurrentHashMap<String, ValueObj> dataStore) {
+
+	public void setDataStore(ConcurrentHashMap<String, ValueObj> dataStore) {
 		this.dataStore = dataStore;
 	}
-	
-	public void setExpiryIndex (TreeMap<Long, ArrayList <String>> expiryIndex) {
+
+	public void setExpiryIndex(TreeMap<Long, ArrayList<String>> expiryIndex) {
 		this.expiryIndex = expiryIndex;
 	}
-	
-	public void setCleanupFrequency (int cleanupFrequency) {
+
+	public void setCleanupFrequency(int cleanupFrequency) {
 		this.cleanupFrequency = cleanupFrequency;
 	}
-	
-	public void run () {
+
+	public void run() {
 		long currentTime;
 		while (true) {
 			indexElement = null;
 			currentTime = System.currentTimeMillis();
-			
-			indexElement = expiryIndex.floorEntry (currentTime);
-			
+
+			indexElement = expiryIndex.floorEntry(currentTime);
+
 			while (indexElement != null) {
 				Iterator<String> keyIterator = indexElement.getValue().iterator();
 				while (keyIterator.hasNext()) {
@@ -49,18 +50,16 @@ public class CacheCleaner extends Thread {
 					dataStore.remove(key);
 				}
 				expiryIndex.remove(indexElement.getKey());
-				indexElement = expiryIndex.floorEntry (currentTime);
+				indexElement = expiryIndex.floorEntry(currentTime);
 			}
-			
+
 			try {
-			synchronized (this) {
-				wait (cleanupFrequency);
-			}
-			}
-			catch (InterruptedException e) { 
-				e.printStackTrace ();
+				synchronized (this) {
+					wait(cleanupFrequency);
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
 	}
-	
 }
