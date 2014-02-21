@@ -8,10 +8,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CacheCleaner extends Thread {
 
-	ConcurrentHashMap<String, ValueObj> dataStore;
-	TreeMap<Long, ArrayList <String>> expiryIndex;
-	Map.Entry<Long, ArrayList <String>> indexElement;
-	int cleanupFrequency = 1;
+	private ConcurrentHashMap<String, ValueObj> dataStore;
+	private TreeMap<Long, ArrayList <String>> expiryIndex;
+	private Map.Entry<Long, ArrayList <String>> indexElement;
+	private int cleanupFrequency = 30000;
 
 	public CacheCleaner (ConcurrentHashMap<String, ValueObj> dataStore, TreeMap<Long, ArrayList <String>> expiryIndex) {
 		setDataStore (dataStore);
@@ -55,9 +55,9 @@ public class CacheCleaner extends Thread {
 			}
 			
 			try {
-			System.out.println ("Cleaner sleeping for: " + cleanupFrequency*(30) +" s"); /* cleanupFrequency*(1000) */ 
+			System.out.println ("Cleaner sleeping for: " + cleanupFrequency +" ms"); /* cleanupFrequency*(1000) */ 
 			synchronized (this) {
-				wait (cleanupFrequency*(30000));
+				wait (cleanupFrequency);
 			}
 			}
 			catch (InterruptedException e) { 

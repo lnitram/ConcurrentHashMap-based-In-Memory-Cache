@@ -11,6 +11,12 @@ public class CacheSystem {
 	TreeMap<Long, ArrayList<String>> expiryIndex;
 	
 	CacheCleaner cleaner;
+	
+	public CacheSystem(int clearInterval) {
+		this();
+		cleaner.setCleanupFrequency(clearInterval);
+	}
+	
 	public CacheSystem (int initialCapacity, float loadFactor) {
 		dataStore = new ConcurrentHashMap<String, ValueObj>(initialCapacity, loadFactor);
 		expiryIndex = new TreeMap<Long, ArrayList<String>>  ();
@@ -55,7 +61,7 @@ public class CacheSystem {
 	}
 	
 	public synchronized void add (String key, Object obj, long inputTTL) throws Exception {
-		long timeToLive = System.currentTimeMillis() + (inputTTL * 1000);
+		long timeToLive = System.currentTimeMillis() + (inputTTL);
 	
 		// Convert input TTL (in seconds) to milliseconds.
 		ValueObj vo = new ValueObj(obj, timeToLive); 
