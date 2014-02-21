@@ -75,4 +75,8 @@ public class CacheSystem {
 		System.out.println ("Adding: ("+key+", "+inputTTL+"s ["+timeToLive+" ms])");
 		expiryIndex.put (timeToLive, keys);
 	}
+	
+	public int size() {
+		return dataStore.size();
+	}
 }
