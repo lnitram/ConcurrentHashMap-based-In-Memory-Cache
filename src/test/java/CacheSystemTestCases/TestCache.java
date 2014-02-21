@@ -12,7 +12,6 @@ public class TestCache {
 		CacheSystem cache = new CacheSystem(100);
 		cache.add("a", new String("Hallo"), 200);
 		cache.add("b", new String("Welt"), 400);
-		Thread.sleep(10);
 
 		assertEquals(2, cache.size());
 		assertEquals("Hallo", cache.get("a"));
@@ -33,7 +32,6 @@ public class TestCache {
 		CacheSystem cache = new CacheSystem(1000);
 		cache.add("a", "Alpha", 1000);
 		cache.add("b", "Bravo", 1000);
-		Thread.sleep(100);
 
 		assertEquals(2,cache.size());
 		assertEquals("Alpha", cache.get("a"));
@@ -45,7 +43,7 @@ public class TestCache {
 		CacheSystem cache = new CacheSystem(1000);
 		cache.add("a","merica" , 1000);
 		cache.add("b", "elgium", 1000);
-		Thread.sleep(100);
+
 		cache.delete("a");
 
 		assertEquals(1, cache.size());
@@ -58,13 +56,13 @@ public class TestCache {
 		CacheSystem cache = new CacheSystem(10);
 		cache.add("a", "Hallo", 30);
 		cache.add("b", null, 100);
-		Thread.sleep(10);
+
 		assertEquals(2, cache.size());
 		assertTrue(cache.contains("a"));
 		assertTrue(cache.contains("b"));
 		assertFalse(cache.contains("c"));
-		Thread.sleep(30);
+
+		Thread.sleep(50);
 		assertFalse(cache.contains("a"));
-		
 	}
 }
