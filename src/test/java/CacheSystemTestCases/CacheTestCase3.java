@@ -1,12 +1,10 @@
 package CacheSystemTestCases;
 
-import CacheSystem.CacheSystem;
-import CacheSystem.util.*;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.DataInputStream;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+
+import CacheSystem.CacheSystem;
 
 class CacheTestCaseThread extends Thread {
 	
@@ -127,7 +125,7 @@ public class CacheTestCase3 {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		CacheTestCase3 ctc = new CacheTestCase3();
+		new CacheTestCase3();
 //		ctc.pw.close();
 	}
 

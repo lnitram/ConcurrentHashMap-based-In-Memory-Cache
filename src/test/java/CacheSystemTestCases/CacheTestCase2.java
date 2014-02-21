@@ -1,12 +1,12 @@
 package CacheSystemTestCases;
 
-import CacheSystem.CacheSystem;
-import CacheSystem.util.*;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.DataInputStream;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+
+import CacheSystem.CacheSystem;
 
 public class CacheTestCase2 {
 
@@ -94,7 +94,7 @@ public class CacheTestCase2 {
 		
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		CacheTestCase2 ctc = new CacheTestCase2();
+		new CacheTestCase2();
 	}
 
 }

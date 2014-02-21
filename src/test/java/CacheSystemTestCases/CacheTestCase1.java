@@ -1,7 +1,6 @@
 package CacheSystemTestCases;
 
 import CacheSystem.CacheSystem;
-import CacheSystem.util.*;
 
 public class CacheTestCase1 {
 
@@ -71,7 +70,7 @@ public class CacheTestCase1 {
 		
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		CacheTestCase1 ctc = new CacheTestCase1();
+		new CacheTestCase1();
 	}
 
 }
